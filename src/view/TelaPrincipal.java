@@ -4,6 +4,10 @@
  */
 package view;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author 42labinfo
@@ -128,7 +132,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemSObreActionPerformed
 
     private void jMenuItemServicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemServicActionPerformed
-       new TelaServico().setVisible(true); // TODO add your handling code here:
+        try {
+            new TelaServico().setVisible(true); // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItemServicActionPerformed
 
     private void jMenuItemFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFecharActionPerformed

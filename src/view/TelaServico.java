@@ -6,6 +6,8 @@ package view;
 
 import dao.ServicoDao;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import models.Servico;
@@ -18,9 +20,11 @@ public class TelaServico extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaServicos
+     * @throws java.sql.SQLException
      */
-    public TelaServico() {
+    public TelaServico() throws SQLException {
         initComponents();
+        this.readTable();
     }
     
     public void readTable() throws SQLException{
@@ -191,8 +195,9 @@ public class TelaServico extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException   {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -221,7 +226,11 @@ public class TelaServico extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new TelaServico().setVisible(true);
+                try {
+                    new TelaServico().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
