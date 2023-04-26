@@ -40,7 +40,20 @@ public class TelaServico extends javax.swing.JFrame {
             });
         }
     }
-    public void limpar(){
+     public void readTableBusca(String busca) throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tblServico.getModel();
+        tblServico.setRowSorter(new TableRowSorter(modelo));
+        modelo.setNumRows(0);
+        ServicoDao servicoDao = new ServicoDao();
+        for (Servico servico: servicoDao.readBusca(busca)){
+            modelo.addRow(new Object[]{
+                servico.getId(),
+                servico.getDescricao(),
+                servico.getValor()
+            });
+        }
+    }
+    public void limpar() throws SQLException{
         txtId.setText("");
         txtDescricao.setText("");
         txtValor.setText("");
@@ -52,6 +65,11 @@ public class TelaServico extends javax.swing.JFrame {
         btnBuscar.setEnabled(true);
         btnExcluir.setEnabled(false);
         btnAtualizar.setEnabled(false);
+        
+        
+        this.readTable();
+        
+        
     }
     
     /**
@@ -131,6 +149,11 @@ public class TelaServico extends javax.swing.JFrame {
         getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 80, 40));
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 80, 30));
 
         txtBusca.addActionListener(new java.awt.event.ActionListener() {
@@ -190,8 +213,20 @@ public class TelaServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscaActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        this.limpar();
+        try {
+            this.limpar();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            readTableBusca(txtBusca.getText());  // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
