@@ -4,6 +4,12 @@
  */
 package view;
 
+import dao.ServicoDao;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import models.Servico;
+
 /**
  *
  * @author 42labinfo
@@ -16,7 +22,34 @@ public class TelaServico extends javax.swing.JFrame {
     public TelaServico() {
         initComponents();
     }
-
+    
+    public void readTable() throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tblServico.getModel();
+        tblServico.setRowSorter(new TableRowSorter(modelo));
+        modelo.setNumRows(0);
+        ServicoDao servicoDao = new ServicoDao();
+        for (Servico servico: servicoDao.read()){
+            modelo.addRow(new Object[]{
+                servico.getId(),
+                servico.getDescricao(),
+                servico.getValor()
+            });
+        }
+    }
+    public void limpar(){
+        txtId.setText("");
+        txtDescricao.setText("");
+        txtValor.setText("");
+        txtBusca.setText("");
+        txtDescricao.grabFocus();
+        
+        btnAdicionar.setEnabled(true);
+        txtBusca.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnExcluir.setEnabled(false);
+        btnAtualizar.setEnabled(false);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,13 +106,20 @@ public class TelaServico extends javax.swing.JFrame {
         getContentPane().add(btnAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 100, 40));
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setEnabled(false);
         btnExcluir.setFocusable(false);
         getContentPane().add(btnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 80, 40));
 
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.setEnabled(false);
         getContentPane().add(btnAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 80, 40));
 
         btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 80, 40));
 
         btnFechar.setText("Fechar");
@@ -145,6 +185,10 @@ public class TelaServico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscaActionPerformed
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        this.limpar();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -175,6 +219,7 @@ public class TelaServico extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TelaServico().setVisible(true);
             }
