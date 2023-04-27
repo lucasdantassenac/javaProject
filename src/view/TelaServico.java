@@ -8,6 +8,7 @@ import dao.ServicoDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import models.Servico;
@@ -161,7 +162,18 @@ public class TelaServico extends javax.swing.JFrame {
                 txtBuscaActionPerformed(evt);
             }
         });
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyPressed(evt);
+            }
+        });
         getContentPane().add(txtBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 90, 30));
+
+        txtValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtValorActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 220, -1));
 
         txtDescricao.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +217,24 @@ public class TelaServico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescricaoActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        
+        if( !txtDescricao.getText().isEmpty() && !txtValor.getText().isEmpty() ){
+            Servico servico = new Servico();
+            ServicoDao dao = new ServicoDao();
+            
+            servico.setDescricao(txtDescricao.getText());
+            servico.setValor(Float.parseFloat(txtValor.getText()));
+            
+            
+            try {
+                dao.create(servico);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o nome e o Valor do serviço");
+        }        
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
@@ -227,6 +256,18 @@ public class TelaServico extends javax.swing.JFrame {
             Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyPressed
+        try {
+            readTableBusca(txtBusca.getText());  // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txtBuscaKeyPressed
+
+    private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtValorActionPerformed
 
     /**
      * @param args the command line arguments

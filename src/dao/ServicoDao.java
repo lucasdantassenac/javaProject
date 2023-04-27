@@ -118,8 +118,9 @@ public class ServicoDao {
         
         List<Servico> servicos = new ArrayList<>();
         try{
-            sql = con.prepareStatement("SELECT * FROM servico WHERE descricao LIKE ?");
+            sql = con.prepareStatement("SELECT * FROM servico WHERE descricao LIKE ? OR valor LIKE ?");
             sql.setString(1, "%"+busca+"%");
+            sql.setString(2, "%"+busca+"%");
             rs = sql.executeQuery();
             while(rs.next()){
                 Servico servico = new Servico();
