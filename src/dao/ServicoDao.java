@@ -99,7 +99,7 @@ public class ServicoDao {
         PreparedStatement sql = null;
         
         try{
-            sql = con.prepareStatement("DELET FROM servico WHERE id = ?");
+            sql = con.prepareStatement("DELETE FROM servico WHERE id = ?");
             sql.setInt(1, s.getId());
             sql.executeUpdate();
             JOptionPane.showMessageDialog(null, "sucesso");

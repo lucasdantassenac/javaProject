@@ -116,6 +116,16 @@ public class TelaServico extends javax.swing.JFrame {
                 "Id", "Descrição", "Valor"
             }
         ));
+        tblServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblServicoMouseClicked(evt);
+            }
+        });
+        tblServico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblServicoKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblServico);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 620, 240));
@@ -131,10 +141,20 @@ public class TelaServico extends javax.swing.JFrame {
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.setFocusable(false);
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 80, 40));
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.setEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 80, 40));
 
         btnLimpar.setText("Limpar");
@@ -147,6 +167,11 @@ public class TelaServico extends javax.swing.JFrame {
 
         btnFechar.setText("Fechar");
         btnFechar.setFocusable(false);
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 80, 40));
 
         btnBuscar.setText("Buscar");
@@ -174,30 +199,30 @@ public class TelaServico extends javax.swing.JFrame {
                 txtValorActionPerformed(evt);
             }
         });
-        getContentPane().add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 220, -1));
+        getContentPane().add(txtValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 152, 220, 30));
 
         txtDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescricaoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 260, 20));
+        getContentPane().add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 260, 30));
 
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
             }
         });
-        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 50, -1));
+        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 152, 50, 30));
 
         jLabel5.setText("Valor");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, -1, -1));
 
         jLabel4.setText("Descrição");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, -1, -1));
 
         jLabel3.setText("ID");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/transparencia.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 710, 470));
@@ -268,6 +293,98 @@ public class TelaServico extends javax.swing.JFrame {
     private void txtValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorActionPerformed
+
+    private void tblServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServicoMouseClicked
+        if(tblServico.getSelectedRow()!= -1){
+            txtId.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 0).toString());
+            txtDescricao.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 1).toString());
+            txtValor.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 2).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }
+    }//GEN-LAST:event_tblServicoMouseClicked
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void tblServicoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblServicoKeyReleased
+        if(tblServico.getSelectedRow()!= -1){
+            txtId.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 0).toString());
+            txtDescricao.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 1).toString());
+            txtValor.setText(tblServico.getValueAt(tblServico.getSelectedRow(), 2).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        } 
+    }//GEN-LAST:event_tblServicoKeyReleased
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+         if(tblServico.getSelectedRow() != -1){
+            
+            Servico servico = new Servico();
+            ServicoDao sDao = new ServicoDao();
+            
+            servico.setDescricao(txtDescricao.getText());
+            servico.setValor(Float.parseFloat(txtValor.getText()));
+            servico.setId((int) tblServico.getValueAt(tblServico.getSelectedRow(), 0));
+            
+            try {
+                sDao.delete(servico);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        
+        if(tblServico.getSelectedRow() != -1){
+            
+            Servico servico = new Servico();
+            ServicoDao sDao = new ServicoDao();
+            
+            servico.setDescricao(txtDescricao.getText());
+            servico.setValor(Float.parseFloat(txtValor.getText()));
+            servico.setId((int) tblServico.getValueAt(tblServico.getSelectedRow(), 0));
+            
+            try {
+                sDao.update(servico);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }
+        
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
