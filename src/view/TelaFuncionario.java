@@ -5,12 +5,15 @@
 package view;
 
 import dao.FuncionarioDao;
+import dao.ServicoDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import models.Funcionario;
+import models.Servico;
 
 /**
  *
@@ -275,7 +278,27 @@ public class TelaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        if( !txtNome.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtRg.getText().isEmpty() && !txtCpf.getText().isEmpty()){
+            Funcionario funcionario = new Funcionario();
+            FuncionarioDao dao = new FuncionarioDao();
+            
+            funcionario.setNome(txtNome.getText());
+            funcionario.setEmail(txtEmail.getText());
+            funcionario.setCpf(txtCpf.getText());
+            funcionario.setRg(txtRg.getText());
+            if( !txtTel.getText().isEmpty() && !txtSalario.getText().isEmpty()){
+                funcionario.setTelefone(txtTel.getText());
+                funcionario.setSalario(Float.parseFloat(txtSalario.getText()));
+            }
+            try {
+                dao.create(funcionario);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o nome e o Valor do serviço");
+        }             // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
