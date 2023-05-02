@@ -129,7 +129,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemClienteActionPerformed
 
     private void jMenuItemFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFuncionarioActionPerformed
-        new TelaFuncionario().setVisible(true);// TODO add your handling code here:
+        try {
+            new TelaFuncionario().setVisible(true); // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItemFuncionarioActionPerformed
 
     private void jMenuItemSObreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSObreActionPerformed
