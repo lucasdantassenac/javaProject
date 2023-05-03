@@ -187,6 +187,11 @@ public final class TelaFuncionario extends javax.swing.JFrame {
                 tblFuncionarioMouseClicked(evt);
             }
         });
+        tblFuncionario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblFuncionarioKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblFuncionario);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 750, 180));
@@ -295,6 +300,7 @@ public final class TelaFuncionario extends javax.swing.JFrame {
             }
             try {
                 dao.create(funcionario);
+                limpar();
             } catch (SQLException ex) {
                 Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -386,6 +392,27 @@ public final class TelaFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "clique num registro");
         }        // TODO add your handling code here:
     }//GEN-LAST:event_tblFuncionarioMouseClicked
+
+    private void tblFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblFuncionarioKeyReleased
+        if(tblFuncionario.getSelectedRow()!= -1){
+            txtId.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 0).toString());
+            txtNome.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 1).toString());
+            txtTel.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 2).toString());
+            txtEmail.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 3).toString());
+            txtRg.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 4).toString());
+            txtCpf.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 5).toString());
+            txtSalario.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 6).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_tblFuncionarioKeyReleased
 
     /**
      * @param args the command line arguments

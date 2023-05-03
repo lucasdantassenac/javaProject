@@ -31,13 +31,14 @@ public class ClienteDao {
         
         try{
             sql = con.prepareStatement(
-         "insert into funcionario(nome, telefone, email, rg, cpf, salario) values (?,?, ?, ? ,? ,?)") ;
+         "insert into cliente(nome, telefone, email, rg, cpf, endereco, cep) values (?,?, ?, ? ,? ,?, ?)") ;
             sql.setString(1, c.getNome());
             sql.setString(2, c.getTelefone());
             sql.setString(3, c.getEmail());
             sql.setString(4, c.getRg());
             sql.setString(5, c.getCpf());
-            sql.setString(6,c.getCep());
+            sql.setString(6, c.getEndereco());
+            sql.setString(7,c.getCep());
             sql.executeUpdate();
             
             JOptionPane.showMessageDialog(
@@ -70,7 +71,7 @@ public class ClienteDao {
                 c.setRg(rs.getString("rg"));
                 c.setCpf(rs.getString("cpf"));
                 c.setCep(rs.getString("cep"));
-                
+                c.setEndereco(rs.getString("endereco"));
                 clientes.add(c);
             }
         }catch(SQLException e){
@@ -88,14 +89,15 @@ public class ClienteDao {
         PreparedStatement sql = null;
         ResultSet rs = null;
         try{
-            sql = con.prepareStatement("update funcionario set nome = ?, telefone = ?, email = ?, rg = ?, cpf = ?, cep = ? where id = ?");
+            sql = con.prepareStatement("update cliente set nome = ?, telefone = ?, email = ?, rg = ?, cpf = ?, cep = ?, endereco = ? where id = ?");
             sql.setString(1, c.getNome());
             sql.setString(2, c.getTelefone());
             sql.setString(3, c.getEmail());
             sql.setString(4, c.getRg());
             sql.setString(5, c.getCpf());
             sql.setString(6, c.getCep());
-                                
+            sql.setString(7, c.getEndereco());            
+            sql.setInt(8, c.getId());
             sql.executeUpdate();
             JOptionPane.showMessageDialog(null, "Sucesso");
         }catch(SQLException e){
@@ -110,7 +112,7 @@ public class ClienteDao {
         PreparedStatement sql = null;
         
         try{
-            sql = con.prepareStatement("DELET FROM cliente WHERE id = ?");
+            sql = con.prepareStatement("DELETE FROM cliente WHERE id = ?");
             sql.setInt(1, c.getId());
             sql.executeUpdate();
             JOptionPane.showMessageDialog(null, "sucesso");
@@ -141,7 +143,7 @@ public class ClienteDao {
                 c.setRg(rs.getString("rg"));
                 c.setCpf(rs.getString("cpf"));
                 c.setCep(rs.getString("cep"));
-                
+                c.setEndereco(rs.getString("endereco"));
                 clientes.add(c);
             }
         }catch(SQLException e){

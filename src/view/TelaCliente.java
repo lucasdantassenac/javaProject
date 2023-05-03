@@ -4,19 +4,88 @@
  */
 package view;
 
+import dao.ClienteDao;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import models.Cliente;
+
 /**
  *
  * @author 42labinfo
  */
-public class TelaCliente extends javax.swing.JFrame {
+public final class TelaCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaCliente
+     * @throws java.sql.SQLException
      */
-    public TelaCliente() {
+    public TelaCliente() throws SQLException {
         initComponents();
+        this.readTable();
     }
-
+    public void readTable() throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tblCliente.getModel();
+        tblCliente.setRowSorter(new TableRowSorter(modelo));
+        modelo.setNumRows(0);
+        ClienteDao clienteDao = new ClienteDao();
+        for (Cliente cliente: clienteDao.read()){
+            modelo.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEmail(),
+                cliente.getRg(),
+                cliente.getCpf(),
+                cliente.getEndereco(),
+                cliente.getCep()
+            });
+        }
+    }
+     public void readTableBusca(String busca) throws SQLException{
+        DefaultTableModel modelo = (DefaultTableModel) tblCliente.getModel();
+        tblCliente.setRowSorter(new TableRowSorter(modelo));
+        modelo.setNumRows(0);
+        ClienteDao clienteDao = new ClienteDao();
+        for (Cliente cliente: clienteDao.readBusca(busca)){
+            modelo.addRow(new Object[]{
+                cliente.getId(),
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEmail(),
+                cliente.getRg(),
+                cliente.getCpf(),
+                cliente.getEndereco(),
+                cliente.getCep()
+            });
+        }
+    }
+    public void limpar() throws SQLException{
+        txtId.setText("");
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtBusca.setText("");
+        txtTel.setText("");
+        txtRg.setText("");
+        txtCpf.setText("");
+        txtEndereco.setText("");
+        txtCep.setText("");
+        txtNome.grabFocus();
+        
+        btnAdicionar.setEnabled(true);
+        txtBusca.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnExcluir.setEnabled(false);
+        btnAtualizar.setEnabled(false);
+        
+        
+        this.readTable();
+        
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,23 +95,341 @@ public class TelaCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Clientes");
-        setResizable(false);
+        txtBusca = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        txtEndereco = new javax.swing.JTextField();
+        txtTel = new javax.swing.JTextField();
+        txtRg = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JTextField();
+        txtCep = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCliente = new javax.swing.JTable();
+        btnBuscar = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        fund = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 220, 30));
+
+        txtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, 30));
+
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 570, 30));
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 180, 30));
+
+        txtEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEnderecoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 120, 30));
+
+        txtTel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 440, 30));
+
+        txtRg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRgActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtRg, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 180, 30));
+
+        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCpfActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 180, 30));
+
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCepActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 120, 30));
+
+        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Telefone", "E-mail", "RG", "CPF", "Cep", "Endereco"
+            }
+        ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
+        tblCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tblClienteKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCliente);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 750, 180));
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 90, 30));
+
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 80, 90, 30));
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 90, 30));
+
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 90, 30));
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 90, 30));
+
+        jButton6.setText("Fechar");
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 450, 90, 30));
+
+        fund.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fundo2.png"))); // NOI18N
+        getContentPane().add(fund, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaActionPerformed
+
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEnderecoActionPerformed
+
+    private void txtTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelActionPerformed
+
+    private void txtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRgActionPerformed
+
+    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCpfActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            readTableBusca(txtBusca.getText());  // TODO add your handling code here:
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        if( !txtNome.getText().isEmpty() && !txtEmail.getText().isEmpty() && !txtRg.getText().isEmpty() && !txtCpf.getText().isEmpty()){
+            Cliente cliente = new Cliente();
+            ClienteDao dao = new ClienteDao();
+            
+            cliente.setNome(txtNome.getText());
+            cliente.setEmail(txtEmail.getText());
+            cliente.setCpf(txtCpf.getText());
+            cliente.setRg(txtRg.getText());
+            cliente.setTelefone(txtTel.getText());
+            cliente.setCep(txtCep.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            
+            try {
+                dao.create(cliente);
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe o nome e o Valor do serviço");
+        }             // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if(tblCliente.getSelectedRow() != -1){
+            
+            Cliente cliente = new Cliente();
+            ClienteDao fDao = new ClienteDao();
+            
+            cliente.setId((int) tblCliente.getValueAt(tblCliente.getSelectedRow(), 0));
+            
+            try {
+                fDao.delete(cliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        if(tblCliente.getSelectedRow() != -1){
+            
+            Cliente cliente = new Cliente();
+            ClienteDao fDao = new ClienteDao();
+            
+            cliente.setNome(txtNome.getText());
+            cliente.setEmail(txtEmail.getText());
+            cliente.setRg(txtRg.getText());
+            cliente.setCpf(txtCpf.getText());
+            cliente.setTelefone(txtTel.getText());
+            cliente.setEndereco(txtEndereco.getText());
+            cliente.setCep(txtCep.getText());
+            cliente.setId((int) tblCliente.getValueAt(tblCliente.getSelectedRow(), 0));
+            
+            try {
+                fDao.update(cliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }   
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        try {
+            limpar();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+    if(tblCliente.getSelectedRow()!= -1){
+            txtId.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 0).toString());
+            txtNome.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 1).toString());
+            txtTel.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 2).toString());
+            txtEmail.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 3).toString());
+            txtRg.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 4).toString());
+            txtCpf.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 5).toString());
+            txtCep.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 6).toString());
+            txtEndereco.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 7).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_tblClienteMouseClicked
+
+    private void tblClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblClienteKeyReleased
+        if(tblCliente.getSelectedRow()!= -1){
+            txtId.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 0).toString());
+            txtNome.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 1).toString());
+            txtTel.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 2).toString());
+            txtEmail.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 3).toString());
+            txtRg.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 4).toString());
+            txtCpf.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 5).toString());
+            txtCep.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 6).toString());
+            txtEndereco.setText(tblCliente.getValueAt(tblCliente.getSelectedRow(), 7).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }         // TODO add your handling code here:
+    }//GEN-LAST:event_tblClienteKeyReleased
+
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCepActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,15 +457,39 @@ public class TelaCliente extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new TelaCliente().setVisible(true);
+                try {
+                    new TelaCliente().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JLabel fund;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblCliente;
+    private javax.swing.JTextField txtBusca;
+    private javax.swing.JTextField txtCep;
+    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtEndereco;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtRg;
+    private javax.swing.JTextField txtTel;
     // End of variables declaration//GEN-END:variables
 }

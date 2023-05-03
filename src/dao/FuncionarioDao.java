@@ -95,6 +95,7 @@ public class FuncionarioDao {
             sql.setString(4, f.getRg());
             sql.setString(5, f.getCpf());
             sql.setFloat(6, f.getSalario());
+            sql.setInt(7, f.getId());
                                 
             sql.executeUpdate();
             JOptionPane.showMessageDialog(null, "Sucesso");
