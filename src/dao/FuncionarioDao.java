@@ -110,7 +110,7 @@ public class FuncionarioDao {
         PreparedStatement sql = null;
         
         try{
-            sql = con.prepareStatement("DELET FROM funcionario WHERE id = ?");
+            sql = con.prepareStatement("DELETE FROM funcionario WHERE id = ?");
             sql.setInt(1, f.getId());
             sql.executeUpdate();
             JOptionPane.showMessageDialog(null, "sucesso");

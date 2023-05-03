@@ -6,6 +6,7 @@ package view;
 
 import dao.FuncionarioDao;
 import dao.ServicoDao;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import models.Servico;
  *
  * @author 42labinfo
  */
-public class TelaFuncionario extends javax.swing.JFrame {
+public final class TelaFuncionario extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaFuncionario
@@ -302,7 +303,27 @@ public class TelaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        if(tblFuncionario.getSelectedRow() != -1){
+            
+            Funcionario funcionario = new Funcionario();
+            FuncionarioDao fDao = new FuncionarioDao();
+            
+            funcionario.setId((int) tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 0));
+            
+            try {
+                fDao.delete(funcionario);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
