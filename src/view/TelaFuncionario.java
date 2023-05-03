@@ -5,8 +5,6 @@
 package view;
 
 import dao.FuncionarioDao;
-import dao.ServicoDao;
-
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import models.Funcionario;
-import models.Servico;
 
 /**
  *
@@ -185,6 +182,11 @@ public final class TelaFuncionario extends javax.swing.JFrame {
                 "ID", "Nome", "Telefone", "E-mail", "RG", "CPF", "Salário"
             }
         ));
+        tblFuncionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblFuncionarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblFuncionario);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 750, 180));
@@ -294,7 +296,7 @@ public final class TelaFuncionario extends javax.swing.JFrame {
             try {
                 dao.create(funcionario);
             } catch (SQLException ex) {
-                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } else {
@@ -313,12 +315,12 @@ public final class TelaFuncionario extends javax.swing.JFrame {
             try {
                 fDao.delete(funcionario);
             } catch (SQLException ex) {
-                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
                 limpar();
             } catch (SQLException ex) {
-                Logger.getLogger(TelaServico.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         } else {
@@ -327,7 +329,33 @@ public final class TelaFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        // TODO add your handling code here:
+        if(tblFuncionario.getSelectedRow() != -1){
+            
+            Funcionario funcionario = new Funcionario();
+            FuncionarioDao fDao = new FuncionarioDao();
+            
+            funcionario.setNome(txtNome.getText());
+            funcionario.setEmail(txtEmail.getText());
+            funcionario.setRg(txtRg.getText());
+            funcionario.setCpf(txtCpf.getText());
+            funcionario.setTelefone(txtTel.getText());
+            funcionario.setSalario(Float.parseFloat(txtSalario.getText()));
+            funcionario.setId((int) tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 0));
+            
+            try {
+                fDao.update(funcionario);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                limpar();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }   
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -337,6 +365,27 @@ public final class TelaFuncionario extends javax.swing.JFrame {
             Logger.getLogger(TelaFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tblFuncionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuncionarioMouseClicked
+    if(tblFuncionario.getSelectedRow()!= -1){
+            txtId.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 0).toString());
+            txtNome.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 1).toString());
+            txtTel.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 2).toString());
+            txtEmail.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 3).toString());
+            txtRg.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 4).toString());
+            txtCpf.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 5).toString());
+            txtSalario.setText(tblFuncionario.getValueAt(tblFuncionario.getSelectedRow(), 6).toString());
+            
+            txtBusca.setEnabled(false);
+            btnBuscar.setEnabled(false);
+            btnAdicionar.setEnabled(false);
+            
+            btnExcluir.setEnabled(true);
+            btnAtualizar.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "clique num registro");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_tblFuncionarioMouseClicked
 
     /**
      * @param args the command line arguments
