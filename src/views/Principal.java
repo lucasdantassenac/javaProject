@@ -92,6 +92,9 @@ public class Principal extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
         txtTitle = new javax.swing.JTextField();
         txtPNumber = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -137,7 +140,7 @@ public class Principal extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 93, 100, 30));
+        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 120, 40));
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -145,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 123, 100, 30));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 120, 40));
 
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +156,7 @@ public class Principal extends javax.swing.JFrame {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 153, 100, 30));
+        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 120, 40));
 
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -161,47 +164,55 @@ public class Principal extends javax.swing.JFrame {
                 btnLimparActionPerformed(evt);
             }
         });
-        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 183, 100, 30));
+        jPanel1.add(btnLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 120, 40));
 
-        btnBuscar.setText("Buscar");
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/zoom.png"))); // NOI18N
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(705, 23, 100, 30));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 60, 40));
 
-        txtBusca.setText("Pesquisar...");
         txtBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, 110, 40));
+        jPanel1.add(txtBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 130, 40));
 
-        txtId.setText("id");
         txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdActionPerformed(evt);
             }
         });
-        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 70, 50));
+        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 70, 50));
 
-        txtTitle.setText("Titulo do livro");
         txtTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTitleActionPerformed(evt);
             }
         });
-        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 400, 50));
+        jPanel1.add(txtTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 300, 50));
 
-        txtPNumber.setText("n° de páginas");
         txtPNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPNumberActionPerformed(evt);
             }
         });
-        jPanel1.add(txtPNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 90, 50));
+        jPanel1.add(txtPNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 120, 50));
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel3.setText("id");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 20, 20));
+
+        jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel4.setText("Título");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 40, 20));
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel5.setText("Páginas");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 50, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -414,6 +425,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblLivros;
