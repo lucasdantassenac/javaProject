@@ -5,6 +5,7 @@
 package view;
 
 import dao.FuncionarioDao;
+import dao.UsuarioDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,19 @@ public final class Login extends javax.swing.JFrame {
     public Login() throws SQLException {
         initComponents();
     }
-  
+    public void entrar(){
+        if(!txtLogin.getText().isEmpty() && !txtSenha.getText().isEmpty()){
+            String login = txtLogin.getText();
+            String senha = txtSenha.getText();
+            
+            UsuarioDao dao = new UsuarioDao();
+            try{
+                dao.loginSistema(login,senha);
+            }catch(SQLException e){
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,7 +52,7 @@ public final class Login extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         btnLogar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
-        txtField = new javax.swing.JPasswordField();
+        txtSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,7 +83,7 @@ public final class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 90, 30));
-        getContentPane().add(txtField, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 230, 30));
+        getContentPane().add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 230, 30));
 
         jLabel1.setText("Senha");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
@@ -143,7 +156,7 @@ public final class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField txtField;
     private javax.swing.JTextField txtLogin;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
